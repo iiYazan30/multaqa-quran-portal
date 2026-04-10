@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الطلاب - ملتقى القرآن</title>
+
+    <link rel="stylesheet" href="../assests/css/variables.css">
+    <link rel="stylesheet" href="../assests/css/reset.css">
+    <link rel="stylesheet" href="../assests/css/global.css">
+    <link rel="stylesheet" href="../assests/css/layout.css">
+    <link rel="stylesheet" href="../assests/css/students.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <div class="sidebar-brand">
+                <h2>ملتقى القرآن</h2>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="../dashboard.html">الرئيسية</a>
+                <a href="students.html" class="active">الطلاب</a>
+                <a href="halqas.html">الحلقات</a>
+                <a href="weekly-recitation.html">التسميع الأسبوعي</a>
+                <a href="exams.html">الامتحانات</a>
+                <a href="reports.html">التقارير</a>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-user">
+                <h4>اسم المستخدم</h4>
+                <p>مسؤول الكلية</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-area">
+        <header class="topbar">
+            <div class="topbar-right">
+                <h1>الطلاب</h1>
+                <p>متابعة طلاب الكلية حسب الحلقة والمشرف</p>
+            </div>
+
+            <div class="topbar-left">
+                <div class="topbar-badge">عرض تجريبي</div>
+            </div>
+        </header>
+
+        <section class="page-content">
+            <section class="stats-grid">
+                <div class="stat-card card">
+                    <h3>124</h3>
+                    <p>إجمالي الطلاب</p>
+                </div>
+                <div class="stat-card card">
+                    <h3>67</h3>
+                    <p>طلاب حفظ</p>
+                </div>
+                <div class="stat-card card">
+                    <h3>57</h3>
+                    <p>طلاب تثبيت</p>
+                </div>
+                <div class="stat-card card">
+                    <h3>8,420</h3>
+                    <p>إجمالي النقاط</p>
+                </div>
+            </section>
+
+            <section class="card panel">
+                <div class="panel-header">
+                    <h2>نظرة عامة على تسميع الطلاب من بداية الفصل الحالي</h2>
+                    <span>من بداية الفصل الحالي</span>
+                </div>
+
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <h3>1,745</h3>
+                        <p>إجمالي صفحات الحفظ</p>
+                    </div>
+                    <div class="overview-card">
+                        <h3>3,920</h3>
+                        <p>إجمالي صفحات المراجعة</p>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>اسم الحلقة</th>
+                                <th>عدد الطلاب</th>
+                                <th>إجمالي الحفظ</th>
+                                <th>إجمالي المراجعة</th>
+                                <th>إجمالي النقاط</th>
+                                <th>نسبة التسميع</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>حلقة النور</td>
+                                <td>21</td>
+                                <td>330</td>
+                                <td>690</td>
+                                <td>2,340</td>
+                                <td>87%</td>
+                            </tr>
+                            <tr>
+                                <td>حلقة الهدى</td>
+                                <td>19</td>
+                                <td>301</td>
+                                <td>650</td>
+                                <td>2,155</td>
+                                <td>84%</td>
+                            </tr>
+                            <tr>
+                                <td>حلقة الفرقان</td>
+                                <td>18</td>
+                                <td>278</td>
+                                <td>622</td>
+                                <td>2,012</td>
+                                <td>82%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card panel">
+                <div class="panel-header">
+                    <h2>تقرير التسميع</h2>
+
+                </div>
+
+                <div class="report-range">
+                    <button type="button" class="range-btn active" data-range="week" aria-pressed="true">هذا الأسبوع</button>
+                    <button type="button" class="range-btn" data-range="all" aria-pressed="false">الإنجاز الكامل</button>
+                </div>
+
+                <div class="report-block" data-report="week">
+                    <h3>تقرير هذا الأسبوع</h3>
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>اسم الطالب</th>
+                                    <th>الحلقة</th>
+                                    <th>حفظ</th>
+                                    <th>مراجعة</th>
+                                    <th>مجموع الصفحات</th>
+                                    <th>من وين لوين سمع</th>
+                                    <th>نقاط الأسبوع</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>عبد الله نزار</td>
+                                    <td>حلقة النور</td>
+                                    <td>4</td>
+                                    <td>0</td>
+                                    <td>4</td>
+                                    <td>صفحة 15-18</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>أنس خليل</td>
+                                    <td>حلقة الهدى</td>
+                                    <td>5</td>
+                                    <td>0</td>
+                                    <td>5</td>
+                                    <td>صفحة 40-44</td>
+                                    <td>25</td>
+                                </tr>
+                                <tr>
+                                    <td>محمد أسامة</td>
+                                    <td>حلقة الفرقان</td>
+                                    <td>0</td>
+                                    <td>5</td>
+                                    <td>5</td>
+                                    <td>صفحة 120-124</td>
+                                    <td>5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="report-block" data-report="all" hidden>
+                    <h3>تقرير من بداية الملتقى</h3>
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>اسم الطالب</th>
+                                    <th>تاريخ الانضمام</th>
+                                    <th>إجمالي الحفظ</th>
+                                    <th>إجمالي المراجعة</th>
+                                    <th>إجمالي الصفحات</th>
+                                    <th>الصفحات المسمّعة من البداية</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>عبد الله نزار</td>
+                                    <td>2023-09-12</td>
+                                    <td>48</td>
+                                    <td>76</td>
+                                    <td>124</td>
+                                    <td>صفحة 15-62</td>
+                                </tr>
+                                <tr>
+                                    <td>أنس خليل</td>
+                                    <td>2023-09-03</td>
+                                    <td>52</td>
+                                    <td>63</td>
+                                    <td>115</td>
+                                    <td>صفحة 22-74</td>
+                                </tr>
+                                <tr>
+                                    <td>محمد أسامة</td>
+                                    <td>2023-10-01</td>
+                                    <td>31</td>
+                                    <td>91</td>
+                                    <td>122</td>
+                                    <td>صفحة 8-40</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card panel">
+                <div class="panel-header">
+                    <h2>بيانات الطلاب الأساسية</h2>
+                    <span>تفاصيل الهوية والتصنيف</span>
+                </div>
+
+                <div class="filter-row">
+                    <label class="sr-only" for="student-search">بحث الطلاب</label>
+                    <input id="student-search" type="text" placeholder="ابحث باسم الطالب أو رقم التسجيل">
+                    <label class="sr-only" for="halqa-filter">فلتر الحلقة</label>
+                    <select id="halqa-filter">
+                        <option>كل الحلقات</option>
+                        <option>حلقة النور</option>
+                        <option>حلقة الهدى</option>
+                        <option>حلقة الفرقان</option>
+                    </select>
+                    <label class="sr-only" for="type-filter">فلتر التصنيف</label>
+                    <select id="type-filter">
+                        <option>كل الأنواع</option>
+                        <option>طالب حفظ</option>
+                        <option>طالب تثبيت</option>
+                    </select>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>اسم الطالب</th>
+                                <th>رقم التسجيل</th>
+                                <th>الحلقة</th>
+                                <th>المشرف</th>
+                                <th>التصنيف</th>
+                                <th>الأجزاء الممتحن فيها</th>
+                                <th>النقاط</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>عبد الله نزار</td>
+                                <td>20231102</td>
+                                <td>حلقة النور</td>
+                                <td>أحمد يوسف</td>
+                                <td><span class="tag tag-hifz">طالب حفظ</span></td>
+                                <td>28، 30</td>
+                                <td>185</td>
+                            </tr>
+                            <tr>
+                                <td>أنس خليل</td>
+                                <td>20230976</td>
+                                <td>حلقة الهدى</td>
+                                <td>محمد صلاح</td>
+                                <td><span class="tag tag-hifz">طالب حفظ</span></td>
+                                <td>27</td>
+                                <td>172</td>
+                            </tr>
+                            <tr>
+                                <td>محمد أسامة</td>
+                                <td>20230730</td>
+                                <td>حلقة الفرقان</td>
+                                <td>عبد الرحمن</td>
+                                <td><span class="tag tag-tathbit">طالب تثبيت</span></td>
+                                <td>29، 30</td>
+                                <td>168</td>
+                            </tr>
+                            <tr>
+                                <td>يوسف رائد</td>
+                                <td>20231118</td>
+                                <td>حلقة النور</td>
+                                <td>أحمد يوسف</td>
+                                <td><span class="tag tag-tathbit">طالب تثبيت</span></td>
+                                <td>26</td>
+                                <td>144</td>
+                            </tr>
+                            <tr>
+                                <td>إبراهيم فهد</td>
+                                <td>20231209</td>
+                                <td>حلقة الفرقان</td>
+                                <td>عبد الرحمن</td>
+                                <td><span class="tag tag-hifz">طالب حفظ</span></td>
+                                <td>26، 28</td>
+                                <td>139</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+    </main>
+
+</div>
+
+<script src="../assests/js/main.js"></script>
+
+</body>
+</html>
+
+

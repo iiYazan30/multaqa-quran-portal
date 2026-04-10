@@ -1,0 +1,252 @@
+/* =========================
+   Dashboard Content
+========================= */
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* =========================
+   Stats Cards
+========================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-white);
+}
+
+.stat-info h3 {
+    font-size: 32px;
+    color: var(--color-olive-dark);
+    margin-bottom: 8px;
+}
+
+.stat-info p {
+    font-size: 15px;
+    color: var(--color-text-light);
+}
+
+/* =========================
+   Main Panels
+========================= */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.dashboard-panel {
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-white);
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.panel-header h2 {
+    font-size: 20px;
+    color: var(--color-text-dark);
+}
+
+.panel-header span {
+    font-size: 14px;
+    color: var(--color-gold);
+    font-weight: 600;
+}
+
+/* =========================
+   Featured Lists
+========================= */
+
+.featured-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.featured-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    background-color: #fafaf7;
+    border: 1px solid #f0f0ea;
+    border-radius: 14px;
+    transition: var(--transition-normal);
+}
+
+.featured-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.featured-item h4 {
+    font-size: 16px;
+    color: var(--color-text-dark);
+    margin-bottom: 4px;
+}
+
+.featured-item p {
+    font-size: 14px;
+    color: var(--color-text-light);
+}
+
+.featured-item strong {
+    font-size: 18px;
+    color: var(--color-olive);
+}
+
+/* =========================
+   Weekly Report Section
+========================= */
+
+.weekly-report-panel {
+    padding: 24px;
+}
+
+.weekly-report-table-wrap {
+    width: 100%;
+    max-height: 520px;
+    overflow: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-white);
+    isolation: isolate;
+}
+
+.weekly-report-table {
+    width: 100%;
+    min-width: 1120px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: var(--color-white);
+}
+
+.weekly-report-table th,
+.weekly-report-table td {
+    text-align: right;
+    padding: 12px 14px;
+    white-space: nowrap;
+    font-size: var(--font-sm);
+}
+
+.weekly-report-table thead th {
+    background-color: #eef3e9;
+    color: var(--color-text-dark);
+    font-weight: 700;
+    position: sticky;
+    top: 0;
+    z-index: 8;
+    background-clip: padding-box;
+    box-shadow: inset 0 -1px 0 var(--color-border);
+}
+
+.weekly-report-table tbody td {
+    color: var(--color-text-dark);
+    border-top: 1px solid var(--color-border);
+}
+
+.weekly-report-table tbody tr:hover {
+    background-color: #fafaf7;
+}
+
+.grouped-report-table .halaqa-group-row th {
+    position: sticky;
+    top: 41px;
+    z-index: 6;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    text-align: right;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    background-clip: padding-box;
+}
+
+.grouped-report-table tbody.halaqa-group:nth-of-type(odd) .halaqa-group-row th {
+    background-color: #d2e1c8;
+}
+
+.grouped-report-table tbody.halaqa-group:nth-of-type(even) .halaqa-group-row th {
+    background-color: #f4ede1;
+}
+
+.grouped-report-table tbody.halaqa-group:nth-of-type(odd) tr td {
+    background-color: #eaf1e3;
+}
+
+.grouped-report-table tbody.halaqa-group:nth-of-type(even) tr td {
+    background-color: #fcf8f1;
+}
+
+/*hover*/
+/*hover*/
+.grouped-report-table tbody.halaqa-group:nth-of-type(odd) tr:hover td {
+    background-color: #dde8d1;
+}
+
+.grouped-report-table tbody.halaqa-group:nth-of-type(even) tr:hover td {
+    background-color: #f6efe2;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 1100px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 650px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card,
+    .dashboard-panel {
+        padding: 18px;
+    }
+
+    .panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .weekly-report-table {
+        min-width: 820px;
+    }
+
+    .weekly-report-table th,
+    .weekly-report-table td {
+        padding: 10px 12px;
+        font-size: var(--font-xs);
+    }
+
+    .grouped-report-table .halaqa-group-row th {
+        top: 37px;
+    }
+}

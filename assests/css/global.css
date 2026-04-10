@@ -103,3 +103,13 @@ input:focus {
     border-radius: 2px;
     margin: 0 auto;
 }
+
+@font-face {
+    font-family: 'Rakkas';
+    src: url('../fonts/Rakkas-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Cairo';
+    src: url('../fonts/Cairo-VariableFont_slnt,wght.ttf') format('truetype');
+}
+
