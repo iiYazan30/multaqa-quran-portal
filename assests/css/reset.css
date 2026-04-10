@@ -1,0 +1,41 @@
+/* إزالة المسافات الافتراضية */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* الصور */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* القوائم */
+ul, ol {
+    list-style: none;
+}
+
+/* الروابط */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* الأزرار */
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* الحقول */
+input, textarea {
+    border: none;
+    outline: none;
+}
+
+/* body */
+body {
+    min-height: 100vh;
+}

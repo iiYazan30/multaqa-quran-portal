@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="css/style.css">
+<head>css">
 
 
     <meta charset="UTF-8">
@@ -14,10 +13,6 @@
 
 
 
-
-
-
-
-<script src="js/script.js"></script>
+<script src="assests/js/main.js"></script>
 </body>
 </html>

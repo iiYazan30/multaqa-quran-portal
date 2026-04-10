@@ -1,0 +1,105 @@
+/* 🌍 RESET بسيط */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 🌐 إعدادات الصفحة */
+html {
+    direction: rtl;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-bg-main);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+}
+
+/* 🔤 العناوين */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: var(--color-text-dark);
+}
+
+/* 📝 النصوص */
+p {
+    font-size: var(--font-md);
+    color: var(--color-text-light);
+}
+
+/* 🔗 الروابط */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 🔘 الأزرار العامة */
+button {
+    font-family: var(--font-main);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+/* 🧾 الحقول */
+input {
+    font-family: var(--font-main);
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    font-size: var(--font-md);
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+/* تأثير عند الضغط */
+input:focus {
+    border-color: var(--color-olive);
+    box-shadow: 0 0 0 2px rgba(85, 107, 47, 0.15);
+}
+
+/* 📦 كلاس مساعد للـ container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 🎯 Flex helper */
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 🧱 Card عام */
+.card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+/* 🔘 زر رئيسي */
+.btn-primary {
+    background-color: var(--color-olive);
+    color: var(--color-white);
+    padding: 12px;
+    border-radius: var(--radius-md);
+    font-size: var(--font-md);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-olive-light);
+}
+
+/* ✨ خط ذهبي صغير (مثل اللي تحت الفورم) */
+.gold-line {
+    width: 50px;
+    height: 4px;
+    background-color: var(--color-gold);
+    border-radius: 2px;
+    margin: 0 auto;
+}
