@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="صورة فيديو تعليمية">
+  <defs>
+    <linearGradient id="v" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#61774a"/>
+      <stop offset="100%" stop-color="#2e4023"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#v)"/>
+  <g fill="none" stroke="#d7bf87" stroke-width="4" opacity="0.45">
+    <rect x="110" y="70" width="580" height="310" rx="22"/>
+    <path d="M180 145h440M180 205h320M180 265h380"/>
+  </g>
+</svg>
