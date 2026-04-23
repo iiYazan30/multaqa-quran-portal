@@ -3,9 +3,30 @@
 	display: grid;
 	grid-template-columns: 0.53fr 1.47fr;
 	background-color: var(--color-bg-main);
+	position: relative;
 }
 
- /*right panel*/
+.login-home-link {
+	position: absolute;
+	top: 18px;
+	left: 18px;
+	z-index: 5;
+	padding: 9px 14px;
+	border-radius: 999px;
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--color-olive-dark);
+	background-color: rgba(255, 255, 255, 0.9);
+	border: 1px solid rgba(63, 74, 44, 0.2);
+	transition: var(--transition-normal);
+}
+
+.login-home-link:hover {
+	background-color: var(--color-white);
+	box-shadow: var(--shadow-sm);
+}
+
+/*right panel*/
 .visual-panel {
 	position: relative;
 	overflow: hidden;
@@ -194,6 +215,13 @@
 		padding: 24px;
 	}
 
+	.login-home-link {
+		top: 12px;
+		left: 12px;
+		padding: 8px 12px;
+		font-size: 13px;
+	}
+
 	.login-card {
 		padding: 34px 22px 24px;
 	}
@@ -203,5 +231,3 @@
 		line-height: 1.9;
 	}
 }
-
-

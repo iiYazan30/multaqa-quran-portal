@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الطالب - ملتقى القرآن</title>
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/student-dashboard.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <div class="sidebar-brand">
+                <h2>ملتقى القرآن</h2>
+                <p>لوحة الطالب</p>
+            </div>
+
+            <nav class="sidebar-menu" aria-label="قائمة الطالب">
+                <a href="#overview" class="sidebar-link active" data-section-link>الرئيسية</a>
+                <a href="#progress" class="sidebar-link" data-section-link>تقدمي</a>
+                <a href="#part-exams" class="sidebar-link" data-section-link>امتحانات الأجزاء</a>
+                <a href="#profile" class="sidebar-link" data-section-link>الملف الشخصي</a>
+                <a href="#settings" class="sidebar-link" data-section-link>الإعدادات</a>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-user">
+                <h4>عبد الله نزار</h4>
+                <p>طالب - حلقة النور</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-area">
+        <header class="topbar">
+            <div class="topbar-right">
+                <h1>لوحة تقدمي الشخصية</h1>
+                <p>متابعة إنجازي في الحفظ والمراجعة منذ انضمامي إلى الملتقى</p>
+            </div>
+
+            <div class="topbar-left">
+                <div class="topbar-context">
+                    <span>الطالب: <strong>عبد الله نزار</strong></span>
+                    <span>الحلقة: <strong>حلقة النور</strong></span>
+                </div>
+                <div class="topbar-badge">أهلا بك، واصل تقدمك</div>
+                <a class="topbar-home-link" href="../index.php">
+                    <span aria-hidden="true">↩</span>
+                    <span>العودة للصفحة الرئيسية</span>
+                </a>
+            </div>
+        </header>
+
+        <section class="page-content">
+            <section id="overview" class="dashboard-section card" data-section>
+                <div class="panel-header">
+                    <h2>ملخص الإنجاز منذ بداية الملتقى</h2>
+                    <span>إجمالي التقدم</span>
+                </div>
+
+                <div class="summary-grid">
+                    <article class="summary-item">
+                        <h3>214 صفحة</h3>
+                        <p>إجمالي ما سمعته منذ بداية الملتقى</p>
+                    </article>
+                    <article class="summary-item">
+                        <h3>86 صفحة</h3>
+                        <p>إجمالي صفحات الحفظ</p>
+                    </article>
+                    <article class="summary-item">
+                        <h3>128 صفحة</h3>
+                        <p>إجمالي صفحات المراجعة</p>
+                    </article>
+                    <article class="summary-item">
+                        <h3>6 امتحانات</h3>
+                        <p>عدد امتحانات الأجزاء</p>
+                    </article>
+                </div>
+            </section>
+
+            <section id="progress" class="dashboard-section card" data-section>
+                <div class="panel-header">
+                    <h2>تقدمي الحالي</h2>
+                    <span>مؤشرات شخصية</span>
+                </div>
+
+                <div class="progress-grid">
+                    <article class="progress-item">
+                        <h3>88.3%</h3>
+                        <p>متوسط علامات امتحانات الأجزاء</p>
+                    </article>
+                    <article class="progress-item">
+                        <h3>96%</h3>
+                        <p>أعلى علامة محققة</p>
+                    </article>
+                    <article class="progress-item">
+                        <h3>2024-09-10</h3>
+                        <p>تاريخ الانضمام إلى الملتقى</p>
+                    </article>
+                </div>
+            </section>
+
+            <section id="part-exams" class="dashboard-section card" data-section>
+                <div class="panel-header">
+                    <h2>أداء امتحانات الأجزاء</h2>
+                    <span>ملخص ونتائج</span>
+                </div>
+
+                <div class="exam-summary-grid">
+                    <article class="exam-summary-item">
+                        <h3>6</h3>
+                        <p>عدد امتحانات الأجزاء</p>
+                    </article>
+                    <article class="exam-summary-item">
+                        <h3>96%</h3>
+                        <p>أعلى علامة</p>
+                    </article>
+                    <article class="exam-summary-item">
+                        <h3>88.3%</h3>
+                        <p>متوسط العلامات</p>
+                    </article>
+                </div>
+
+                <div class="table-wrap section-table-gap">
+                    <table class="data-table exams-table">
+                        <thead>
+                        <tr>
+                            <th>اسم الجزء</th>
+                            <th>تاريخ الامتحان</th>
+                            <th>العلامة</th>
+                            <th>التقدير</th>
+                            <th>ملاحظات</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>الجزء الثلاثون</td>
+                            <td>2025-10-12</td>
+                            <td>96%</td>
+                            <td><span class="grade-badge grade-excellent">ممتاز</span></td>
+                            <td>ثبات ممتاز وإتقان عال</td>
+                        </tr>
+                        <tr>
+                            <td>الجزء التاسع والعشرون</td>
+                            <td>2025-12-08</td>
+                            <td>91%</td>
+                            <td><span class="grade-badge grade-excellent">ممتاز</span></td>
+                            <td>أخطاء قليلة جدا</td>
+                        </tr>
+                        <tr>
+                            <td>الجزء الثامن والعشرون</td>
+                            <td>2026-01-29</td>
+                            <td>89%</td>
+                            <td><span class="grade-badge grade-good">جيد جدا</span></td>
+                            <td>تحسن في الربط بين الصفحات</td>
+                        </tr>
+                        <tr>
+                            <td>الجزء السابع والعشرون</td>
+                            <td>2026-02-20</td>
+                            <td>87%</td>
+                            <td><span class="grade-badge grade-good">جيد جدا</span></td>
+                            <td>مراجعة إضافية مطلوبة في مواضع متفرقة</td>
+                        </tr>
+                        <tr>
+                            <td>الجزء السادس والعشرون</td>
+                            <td>2026-03-14</td>
+                            <td>84%</td>
+                            <td><span class="grade-badge grade-mid">جيد</span></td>
+                            <td>يحتاج تثبيت بدايات الأوجه</td>
+                        </tr>
+                        <tr>
+                            <td>الجزء الخامس والعشرون</td>
+                            <td>2026-04-05</td>
+                            <td>83%</td>
+                            <td><span class="grade-badge grade-mid">جيد</span></td>
+                            <td>ينصح بخطة مراجعة مركزة قبل الامتحان القادم</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="profile" class="dashboard-section card" data-section>
+                <div class="panel-header">
+                    <h2>الملف الشخصي</h2>
+                    <span>معلوماتي الأساسية</span>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h3>الاسم الكامل</h3>
+                        <p>عبد الله نزار أحمد</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>رقم التسجيل</h3>
+                        <p>20231102</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>الحلقة</h3>
+                        <p>حلقة النور</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>المشرف</h3>
+                        <p>أحمد يوسف</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="settings" class="dashboard-section card" data-section>
+                <div class="panel-header">
+                    <h2>الإعدادات</h2>
+                    <span>خيارات سريعة</span>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="settings-item">
+                        <h3>لغة الواجهة</h3>
+                        <p>العربية</p>
+                    </div>
+                    <div class="settings-item">
+                        <h3>تنبيه موعد التسميع</h3>
+                        <p>مفعل - يوم الثلاثاء 07:00 مساء</p>
+                    </div>
+                    <div class="settings-item">
+                        <h3>تنبيه الامتحانات</h3>
+                        <p>قبل موعد الامتحان بـ 48 ساعة</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="weekly-summary" class="dashboard-section card" data-section>
+                <div class="panel-header">
+                    <h2>ملخص التسميع الأسبوعي</h2>
+                    <span>عرض مختصر</span>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table weekly-summary-table">
+                        <thead>
+                        <tr>
+                            <th>الأسبوع</th>
+                            <th>صفحات الحفظ</th>
+                            <th>صفحات المراجعة</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>الأسبوع 1</td>
+                            <td>4</td>
+                            <td>6</td>
+                        </tr>
+                        <tr>
+                            <td>الأسبوع 2</td>
+                            <td>5</td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td>الأسبوع 3</td>
+                            <td>3</td>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <td>الأسبوع 4</td>
+                            <td>4</td>
+                            <td>6</td>
+                        </tr>
+                        <tr>
+                            <td>الأسبوع 5</td>
+                            <td>5</td>
+                            <td>9</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td>الإجمالي</td>
+                            <td>21</td>
+                            <td>36</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+        </section>
+    </main>
+
+</div>
+
+<script src="../assets/js/student-dashboard.js"></script>
+</body>
+</html>
+

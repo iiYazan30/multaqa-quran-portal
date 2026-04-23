@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة مشرف الحلقة - ملتقى القرآن</title>
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/halqa-supervisor-dashboard.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <div class="sidebar-brand">
+                <h2>ملتقى القرآن</h2>
+                <p>لوحة مشرف الحلقة</p>
+            </div>
+
+            <nav class="sidebar-menu supervisor-menu" aria-label="القائمة الرئيسية">
+                <a href="#overview" class="sidebar-link active" data-section-link>الرئيسية</a>
+                <a href="#students" class="sidebar-link" data-section-link>طلاب الحلقة</a>
+                <a href="#weekly-report" class="sidebar-link is-important" data-section-link>التقرير الأسبوعي</a>
+                <a href="#stats" class="sidebar-link" data-section-link>إحصائيات الحلقة</a>
+                <a href="#follow-up" class="sidebar-link" data-section-link>يحتاج إلى متابعة</a>
+                <a href="#settings" class="sidebar-link" data-section-link>الإعدادات</a>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-user">
+                <h4>أحمد يوسف</h4>
+                <p>مشرف حلقة النور</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-area">
+        <header class="topbar">
+            <div class="topbar-right">
+                <h1>لوحة متابعة حلقة النور</h1>
+                <p>متابعة أسبوعية مركزة لطلاب الحلقة والتسميع</p>
+            </div>
+
+            <div class="topbar-left">
+                <div class="topbar-context">
+                    <span>الحلقة: <strong>حلقة النور</strong></span>
+                    <span>المشرف: <strong>أحمد يوسف</strong></span>
+                </div>
+                <div class="topbar-badge">الأسبوع 12 - الفصل الحالي</div>
+                <a class="topbar-home-link" href="../index.php">
+                    <span aria-hidden="true">↩</span>
+                    <span>العودة للصفحة الرئيسية</span>
+                </a>
+            </div>
+        </header>
+
+        <section class="page-content">
+            <section id="overview" class="dashboard-section card section-visible" data-section>
+                <div class="panel-header">
+                    <h2>ملخص الحلقة</h2>
+                    <span>نظرة عملية سريعة</span>
+                </div>
+
+                <div id="summary-strip" class="summary-strip" aria-live="polite"></div>
+
+                <div class="panel-subheader">
+                    <h3>نظرة سريعة على الطلاب هذا الأسبوع</h3>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table quick-overview-table">
+                        <thead>
+                        <tr>
+                            <th>اسم الطالب</th>
+                            <th>آخر تسميع</th>
+                            <th>النوع</th>
+                            <th>من</th>
+                            <th>إلى</th>
+                            <th>مجموع صفحات هذا الأسبوع</th>
+                            <th>الحالة</th>
+                        </tr>
+                        </thead>
+                        <tbody id="quick-overview-body"></tbody>
+                    </table>
+                </div>
+
+                <div class="panel-subheader">
+                    <h3>طلاب يحتاجون متابعة سريعة</h3>
+                </div>
+
+                <div id="followup-preview-list" class="followup-preview-list"></div>
+            </section>
+
+            <section id="weekly-report" class="dashboard-section card" data-section>
+                <div class="panel-header">
+                    <h2>التقرير الأسبوعي للحلقة</h2>
+                    <span>إدخال تسميع الطلاب لهذا الأسبوع</span>
+                </div>
+
+                <p class="section-note">يمكن إضافة أكثر من دفعة تسميع لكل طالب، ويتم تحديث المجاميع تلقائيا.</p>
+
+                <div id="weekly-report-list" class="weekly-report-list"></div>
+            </section>
+
+            <section id="stats" class="dashboard-section card" data-section>
+                <div class="panel-header">
+                    <h2>إحصائيات الحلقة من بداية الفصل</h2>
+                    <span>متابعة الأداء التراكمي</span>
+                </div>
+
+                <div class="stats-layout">
+                    <article class="stats-panel">
+                        <h3>أداء الحلقة حسب الأسابيع</h3>
+                        <div class="table-wrap">
+                            <table class="data-table compact-table">
+                                <thead>
+                                <tr>
+                                    <th>الأسبوع</th>
+                                    <th>نسبة التسميع</th>
+                                    <th>عدد الطلاب المسمعين</th>
+                                    <th>مجموع الصفحات</th>
+                                </tr>
+                                </thead>
+                                <tbody id="weekly-performance-body"></tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                    <article class="stats-panel">
+                        <h3>مؤشر نسبة التسميع</h3>
+                        <div id="weekly-performance-chart" class="simple-bars"></div>
+                    </article>
+                </div>
+
+                <div class="panel-subheader">
+                    <h3>الإحصائيات التراكمية لكل طالب</h3>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                        <tr>
+                            <th>اسم الطالب</th>
+                            <th>إجمالي ما حفظه</th>
+                            <th>إجمالي ما راجعه</th>
+                            <th>عدد مرات التسميع</th>
+                            <th>عدد الأسابيع النشطة</th>
+                            <th>آخر أسبوع سمع فيه</th>
+                        </tr>
+                        </thead>
+                        <tbody id="cumulative-stats-body"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="students" class="dashboard-section card" data-section>
+                <div class="panel-header">
+                    <h2>طلاب الحلقة</h2>
+                    <span>متابعة المستوى والحضور</span>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                        <tr>
+                            <th>اسم الطالب</th>
+                            <th>المستوى الحالي</th>
+                            <th>حالة الحضور</th>
+                            <th>حالة الالتزام</th>
+                            <th>وصول سريع للتقرير الأسبوعي</th>
+                            <th>حالة الطالب</th>
+                        </tr>
+                        </thead>
+                        <tbody id="students-page-body"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="follow-up" class="dashboard-section card" data-section>
+                <div class="panel-header">
+                    <h2>الطلاب الذين يحتاجون متابعة</h2>
+                    <span>حالات تتطلب تدخل المشرف</span>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                        <tr>
+                            <th>اسم الطالب</th>
+                            <th>آخر تسميع</th>
+                            <th>سبب المتابعة</th>
+                            <th>الحالة</th>
+                            <th>إجراء مقترح</th>
+                        </tr>
+                        </thead>
+                        <tbody id="followup-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="settings" class="dashboard-section card" data-section>
+                <div class="panel-header">
+                    <h2>الإعدادات</h2>
+                    <span>تخصيص متابعة الحلقة</span>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="settings-item">
+                        <h3>موعد إغلاق التقرير الأسبوعي</h3>
+                        <p>الجمعة - 08:00 مساء</p>
+                    </div>
+                    <div class="settings-item">
+                        <h3>تنبيه الطلاب المتأخرين</h3>
+                        <p>مفعل - يرسل يوم الأربعاء</p>
+                    </div>
+                    <div class="settings-item">
+                        <h3>صيغة التقرير المعتمد</h3>
+                        <p>تقرير الحلقة المختصر</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+</div>
+
+<script src="../assets/js/halqa-supervisor-dashboard.js"></script>
+</body>
+</html>
+
