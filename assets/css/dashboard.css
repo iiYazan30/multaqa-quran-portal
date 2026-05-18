@@ -9,6 +9,135 @@
 }
 
 /* =========================
+   Admin Week Filter
+========================= */
+
+.topbar-left form.admin-week-filter {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    gap: 10px;
+    min-height: 42px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    box-shadow: none;
+    direction: rtl;
+    transition: var(--transition-fast);
+}
+
+.topbar-left form.admin-week-filter::before {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    border-left: 2px solid var(--color-gold-light);
+    border-bottom: 2px solid var(--color-gold-light);
+    pointer-events: none;
+    transform: translateY(-65%) rotate(-45deg);
+    z-index: 2;
+}
+
+.admin-week-filter .week-filter-label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    font-size: var(--font-sm);
+    font-weight: 700;
+    color: var(--color-olive-dark);
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.topbar-left form.admin-week-filter select.week-select {
+    display: inline-flex;
+    align-items: center;
+    width: auto !important;
+    min-width: 142px;
+    height: 42px !important;
+    box-sizing: border-box;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    font-family: var(--font-main);
+    font-size: 14px !important;
+    font-weight: 700;
+    line-height: 42px;
+    color: var(--color-white) !important;
+    text-align: right;
+    direction: rtl;
+    padding: 0 18px 0 42px !important;
+    border: 1px solid var(--color-olive-dark) !important;
+    border-radius: 999px !important;
+    background:
+        linear-gradient(135deg, var(--color-olive), var(--color-olive-dark)) !important;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    color-scheme: light;
+}
+
+.topbar-left form.admin-week-filter select.week-select::-ms-expand {
+    display: none;
+}
+
+.topbar-left form.admin-week-filter select.week-select:hover {
+    transform: translateY(-1px);
+    border-color: var(--color-olive) !important;
+    background:
+        linear-gradient(135deg, var(--color-olive-light), var(--color-olive)) !important;
+    box-shadow: var(--shadow-md);
+}
+
+.topbar-left form.admin-week-filter select.week-select:focus {
+    outline: none;
+    border-color: var(--color-gold) !important;
+    box-shadow:
+        0 0 0 3px rgba(200, 167, 91, 0.24),
+        var(--shadow-sm);
+}
+
+form.admin-week-filter select.week-select {
+    display: inline-block !important;
+    min-width: 142px !important;
+    height: 42px !important;
+    padding: 0 18px 0 42px !important;
+    border: 1px solid var(--color-olive-dark) !important;
+    border-radius: 999px !important;
+    background: linear-gradient(135deg, var(--color-olive), var(--color-olive-dark)) !important;
+    color: var(--color-white) !important;
+    font-family: var(--font-main) !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    line-height: 42px !important;
+    direction: rtl !important;
+    text-align: right !important;
+    cursor: pointer !important;
+    box-shadow: var(--shadow-sm) !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+}
+
+form.admin-week-filter select.week-select option {
+    color: var(--color-olive-dark);
+    background-color: #fffdf7;
+    font-family: var(--font-main);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+form.admin-week-filter select.week-select option:checked {
+    color: var(--color-white);
+    background-color: var(--color-olive);
+    box-shadow: 0 0 0 100px var(--color-olive) inset;
+}
+
+/* =========================
    Stats Cards
 ========================= */
 
@@ -221,6 +350,16 @@
 }
 
 @media (max-width: 650px) {
+    .topbar-left form.admin-week-filter {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .topbar-left form.admin-week-filter select.week-select {
+        min-width: 0;
+        flex: 1;
+    }
+
     .stats-grid {
         grid-template-columns: 1fr;
     }
