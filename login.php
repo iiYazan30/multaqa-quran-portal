@@ -38,10 +38,10 @@
                     <p>كلما ازددت علمًا بالقرآن، ازددت خشية</p>
                 </header>
 
-                <form class="login-form" action="#" method="post" novalidate>
+                <form class="login-form" action="php/login_process.php" method="POST" novalidate>
                     <div class="field-group">
                         <label for="user-id">رقم المستخدم</label>
-                        <input id="user-id" name="userId" type="text" inputmode="numeric" autocomplete="username" placeholder="أدخل رقم المستخدم">
+                        <input id="user-id" name="username" type="text" inputmode="numeric" autocomplete="username" placeholder="أدخل رقم المستخدم">
                     </div>
 
                     <div class="field-group">

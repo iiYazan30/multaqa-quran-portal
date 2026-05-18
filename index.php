@@ -29,7 +29,7 @@
             </nav>
 
             <div class="nav-cta">
-                <a class="btn btn-secondary" href="login.html">تسجيل الدخول</a>
+                <a class="btn btn-secondary" href="login.php">تسجيل الدخول</a>
                 <a class="btn btn-primary" href="#cta">التسجيل في حلقات التجويد</a>
             </div>
         </div>
@@ -43,7 +43,7 @@
             <p>بيئة إيمانية راسخة لتعلّم التلاوة الصحيحة والحفظ المتقن بإشراف نخبة من المختصين في جامعة النجاح الوطنية.</p>
             <div class="hero-actions">
                 <a class="btn btn-primary" href="#cta">التسجيل في حلقات التجويد</a>
-                <a class="btn btn-hero-secondary" href="login.html">تسجيل الدخول</a>
+                <a class="btn btn-hero-secondary" href="login.php">تسجيل الدخول</a>
             </div>
         </div>
         <div class="hero-fade" aria-hidden="true"></div>
@@ -318,7 +318,7 @@
             <p>سجل مقعدك الآن واختر الحلقة المناسبة لمستواك مع إشراف أكاديمي وتربوي متكامل.</p>
             <div class="cta-actions">
                 <a class="btn btn-primary" href="#contact">سجل الآن</a>
-                <a class="btn btn-light-outline" href="login.html">لدي حساب بالفعل</a>
+                <a class="btn btn-light-outline" href="login.php">لدي حساب بالفعل</a>
             </div>
         </div>
     </section>

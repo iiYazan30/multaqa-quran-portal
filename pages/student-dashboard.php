@@ -1,3 +1,156 @@
+<?php
+session_start();
+require_once __DIR__ . "/../php/db_connect.php";
+/** @var PDO $pdo */
+
+if (!isset($_SESSION["user_id"])) {
+    header("Location: ../login.php");
+    exit;
+}
+
+$sessionRole = isset($_SESSION["role"]) ? $_SESSION["role"] : (isset($_SESSION["role_name"]) ? $_SESSION["role_name"] : "");
+if ($sessionRole !== "student") {
+    header("Location: ../login.php");
+    exit;
+}
+
+function e($value)
+{
+    return htmlspecialchars((string) $value, ENT_QUOTES, "UTF-8");
+}
+
+function fallbackValue($value, $fallback)
+{
+    return ($value === null || $value === "") ? $fallback : $value;
+}
+
+function formatNumberValue($value)
+{
+    if ($value === null || $value === "") {
+        return "0";
+    }
+
+    $number = (float) $value;
+    if (floor($number) == $number) {
+        return (string) (int) $number;
+    }
+
+    return rtrim(rtrim(number_format($number, 1, ".", ""), "0"), ".");
+}
+
+function formatPercentValue($value, $fallback)
+{
+    if ($value === null || $value === "") {
+        return $fallback;
+    }
+
+    return formatNumberValue($value) . "%";
+}
+
+function gradeBadgeClass($grade, $score)
+{
+    if (strpos((string) $grade, "ممتاز") !== false || (float) $score >= 90) {
+        return "grade-excellent";
+    }
+
+    if (strpos((string) $grade, "جيد جدا") !== false || strpos((string) $grade, "جيد جداً") !== false || (float) $score >= 85) {
+        return "grade-good";
+    }
+
+    return "grade-mid";
+}
+
+$userId = $_SESSION["user_id"];
+
+$studentStmt = $pdo->prepare("
+    SELECT
+        students.student_id,
+        students.name AS student_name,
+        users.username,
+        halqas.name AS halqa_name,
+        supervisors.name AS supervisor_name
+    FROM students
+    JOIN users ON students.user_id = users.user_id
+    LEFT JOIN halqas ON students.halqa_id = halqas.halqa_id
+    LEFT JOIN supervisors ON halqas.supervisor_id = supervisors.supervisor_id
+    WHERE students.user_id = ?
+    LIMIT 1
+");
+$studentStmt->execute(array($userId));
+$student = $studentStmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$student) {
+    header("Location: ../login.php");
+    exit;
+}
+
+$studentId = $student["student_id"];
+$studentName = fallbackValue($student["student_name"], fallbackValue(isset($_SESSION["username"]) ? $_SESSION["username"] : "", "لا يوجد"));
+$halqaName = fallbackValue($student["halqa_name"], "لا يوجد");
+$supervisorName = fallbackValue($student["supervisor_name"], "لا يوجد");
+
+$recitationStatsStmt = $pdo->prepare("
+    SELECT
+        COALESCE(SUM(pages_count), 0) AS total_pages,
+        COALESCE(SUM(CASE WHEN type + 0 = 1 THEN pages_count ELSE 0 END), 0) AS memorization_pages,
+        COALESCE(SUM(CASE WHEN type + 0 = 2 THEN pages_count ELSE 0 END), 0) AS revision_pages
+    FROM recitations
+    WHERE student_id = ?
+");
+$recitationStatsStmt->execute(array($studentId));
+$recitationStats = $recitationStatsStmt->fetch(PDO::FETCH_ASSOC);
+
+$examStatsStmt = $pdo->prepare("
+    SELECT
+        COUNT(exam_id) AS exams_count,
+        MAX(score) AS highest_score,
+        AVG(score) AS average_score
+    FROM exams
+    WHERE student_id = ?
+");
+$examStatsStmt->execute(array($studentId));
+$examStats = $examStatsStmt->fetch(PDO::FETCH_ASSOC);
+
+$latestExamStmt = $pdo->prepare("
+    SELECT score, exam_date
+    FROM exams
+    WHERE student_id = ?
+    ORDER BY exam_date DESC, exam_id DESC
+    LIMIT 1
+");
+$latestExamStmt->execute(array($studentId));
+$latestExam = $latestExamStmt->fetch(PDO::FETCH_ASSOC);
+
+$examsStmt = $pdo->prepare("
+    SELECT part_name, exam_date, score, grade, notes
+    FROM exams
+    WHERE student_id = ?
+    ORDER BY exam_date DESC, exam_id DESC
+");
+$examsStmt->execute(array($studentId));
+$exams = $examsStmt->fetchAll(PDO::FETCH_ASSOC);
+
+$weeklyStmt = $pdo->prepare("
+    SELECT
+        weeks.week_number,
+        COALESCE(SUM(CASE WHEN recitations.type + 0 = 1 THEN recitations.pages_count ELSE 0 END), 0) AS memorization_pages,
+        COALESCE(SUM(CASE WHEN recitations.type + 0 = 2 THEN recitations.pages_count ELSE 0 END), 0) AS revision_pages
+    FROM recitations
+    JOIN weeks ON recitations.week_id = weeks.week_id
+    WHERE recitations.student_id = ?
+    GROUP BY weeks.week_id, weeks.week_number
+    ORDER BY weeks.week_number ASC
+");
+$weeklyStmt->execute(array($studentId));
+$weeklyRows = $weeklyStmt->fetchAll(PDO::FETCH_ASSOC);
+
+$weeklyMemorizationTotal = 0;
+$weeklyRevisionTotal = 0;
+foreach ($weeklyRows as $weeklyRow) {
+    $weeklyMemorizationTotal += (int) $weeklyRow["memorization_pages"];
+    $weeklyRevisionTotal += (int) $weeklyRow["revision_pages"];
+}
+?>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -33,8 +186,8 @@
 
         <div class="sidebar-bottom">
             <div class="sidebar-user">
-                <h4>عبد الله نزار</h4>
-                <p>طالب - حلقة النور</p>
+                <h4><?php echo e($studentName); ?></h4>
+                <p>طالب - <?php echo e($halqaName); ?></p>
             </div>
         </div>
     </aside>
@@ -48,8 +201,8 @@
 
             <div class="topbar-left">
                 <div class="topbar-context">
-                    <span>الطالب: <strong>عبد الله نزار</strong></span>
-                    <span>الحلقة: <strong>حلقة النور</strong></span>
+                    <span>الطالب: <strong><?php echo e($studentName); ?></strong></span>
+                    <span>الحلقة: <strong><?php echo e($halqaName); ?></strong></span>
                 </div>
                 <div class="topbar-badge">أهلا بك، واصل تقدمك</div>
                 <a class="topbar-home-link" href="../index.php">
@@ -68,19 +221,19 @@
 
                 <div class="summary-grid">
                     <article class="summary-item">
-                        <h3>214 صفحة</h3>
+                        <h3><?php echo e(formatNumberValue($recitationStats["total_pages"])); ?> صفحة</h3>
                         <p>إجمالي ما سمعته منذ بداية الملتقى</p>
                     </article>
                     <article class="summary-item">
-                        <h3>86 صفحة</h3>
+                        <h3><?php echo e(formatNumberValue($recitationStats["memorization_pages"])); ?> صفحة</h3>
                         <p>إجمالي صفحات الحفظ</p>
                     </article>
                     <article class="summary-item">
-                        <h3>128 صفحة</h3>
+                        <h3><?php echo e(formatNumberValue($recitationStats["revision_pages"])); ?> صفحة</h3>
                         <p>إجمالي صفحات المراجعة</p>
                     </article>
                     <article class="summary-item">
-                        <h3>6 امتحانات</h3>
+                        <h3><?php echo e(formatNumberValue($examStats["exams_count"])); ?> امتحانات</h3>
                         <p>عدد امتحانات الأجزاء</p>
                     </article>
                 </div>
@@ -94,16 +247,16 @@
 
                 <div class="progress-grid">
                     <article class="progress-item">
-                        <h3>88.3%</h3>
+                        <h3><?php echo e(formatPercentValue($examStats["average_score"], "0")); ?></h3>
                         <p>متوسط علامات امتحانات الأجزاء</p>
                     </article>
                     <article class="progress-item">
-                        <h3>96%</h3>
-                        <p>أعلى علامة محققة</p>
+                        <h3><?php echo e($latestExam ? formatPercentValue($latestExam["score"], "لا يوجد") : "لا يوجد"); ?></h3>
+                        <p>آخر علامة محققة</p>
                     </article>
                     <article class="progress-item">
-                        <h3>2024-09-10</h3>
-                        <p>تاريخ الانضمام إلى الملتقى</p>
+                        <h3><?php echo e($latestExam ? $latestExam["exam_date"] : "لم يتم التسجيل بعد"); ?></h3>
+                        <p>آخر اختبار</p>
                     </article>
                 </div>
             </section>
@@ -116,15 +269,15 @@
 
                 <div class="exam-summary-grid">
                     <article class="exam-summary-item">
-                        <h3>6</h3>
+                        <h3><?php echo e(formatNumberValue($examStats["exams_count"])); ?></h3>
                         <p>عدد امتحانات الأجزاء</p>
                     </article>
                     <article class="exam-summary-item">
-                        <h3>96%</h3>
+                        <h3><?php echo e(formatPercentValue($examStats["highest_score"], "0")); ?></h3>
                         <p>أعلى علامة</p>
                     </article>
                     <article class="exam-summary-item">
-                        <h3>88.3%</h3>
+                        <h3><?php echo e(formatPercentValue($examStats["average_score"], "0")); ?></h3>
                         <p>متوسط العلامات</p>
                     </article>
                 </div>
@@ -141,48 +294,21 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <?php if (count($exams) === 0): ?>
                         <tr>
-                            <td>الجزء الثلاثون</td>
-                            <td>2025-10-12</td>
-                            <td>96%</td>
-                            <td><span class="grade-badge grade-excellent">ممتاز</span></td>
-                            <td>ثبات ممتاز وإتقان عال</td>
+                            <td colspan="5">لا يوجد</td>
                         </tr>
+                        <?php else: ?>
+                        <?php foreach ($exams as $exam): ?>
                         <tr>
-                            <td>الجزء التاسع والعشرون</td>
-                            <td>2025-12-08</td>
-                            <td>91%</td>
-                            <td><span class="grade-badge grade-excellent">ممتاز</span></td>
-                            <td>أخطاء قليلة جدا</td>
+                            <td><?php echo e($exam["part_name"]); ?></td>
+                            <td><?php echo e($exam["exam_date"]); ?></td>
+                            <td><?php echo e(formatPercentValue($exam["score"], "0")); ?></td>
+                            <td><span class="grade-badge <?php echo e(gradeBadgeClass($exam["grade"], $exam["score"])); ?>"><?php echo e(fallbackValue($exam["grade"], "لا يوجد")); ?></span></td>
+                            <td><?php echo e(fallbackValue($exam["notes"], "لا يوجد")); ?></td>
                         </tr>
-                        <tr>
-                            <td>الجزء الثامن والعشرون</td>
-                            <td>2026-01-29</td>
-                            <td>89%</td>
-                            <td><span class="grade-badge grade-good">جيد جدا</span></td>
-                            <td>تحسن في الربط بين الصفحات</td>
-                        </tr>
-                        <tr>
-                            <td>الجزء السابع والعشرون</td>
-                            <td>2026-02-20</td>
-                            <td>87%</td>
-                            <td><span class="grade-badge grade-good">جيد جدا</span></td>
-                            <td>مراجعة إضافية مطلوبة في مواضع متفرقة</td>
-                        </tr>
-                        <tr>
-                            <td>الجزء السادس والعشرون</td>
-                            <td>2026-03-14</td>
-                            <td>84%</td>
-                            <td><span class="grade-badge grade-mid">جيد</span></td>
-                            <td>يحتاج تثبيت بدايات الأوجه</td>
-                        </tr>
-                        <tr>
-                            <td>الجزء الخامس والعشرون</td>
-                            <td>2026-04-05</td>
-                            <td>83%</td>
-                            <td><span class="grade-badge grade-mid">جيد</span></td>
-                            <td>ينصح بخطة مراجعة مركزة قبل الامتحان القادم</td>
-                        </tr>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -197,19 +323,19 @@
                 <div class="info-grid">
                     <div class="info-item">
                         <h3>الاسم الكامل</h3>
-                        <p>عبد الله نزار أحمد</p>
+                        <p><?php echo e($studentName); ?></p>
                     </div>
                     <div class="info-item">
                         <h3>رقم التسجيل</h3>
-                        <p>20231102</p>
+                        <p><?php echo e($studentId); ?></p>
                     </div>
                     <div class="info-item">
                         <h3>الحلقة</h3>
-                        <p>حلقة النور</p>
+                        <p><?php echo e($halqaName); ?></p>
                     </div>
                     <div class="info-item">
                         <h3>المشرف</h3>
-                        <p>أحمد يوسف</p>
+                        <p><?php echo e($supervisorName); ?></p>
                     </div>
                 </div>
             </section>
@@ -252,37 +378,27 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <?php if (count($weeklyRows) === 0): ?>
                         <tr>
-                            <td>الأسبوع 1</td>
-                            <td>4</td>
-                            <td>6</td>
+                            <td>لا يوجد</td>
+                            <td>0</td>
+                            <td>0</td>
                         </tr>
+                        <?php else: ?>
+                        <?php foreach ($weeklyRows as $weeklyRow): ?>
                         <tr>
-                            <td>الأسبوع 2</td>
-                            <td>5</td>
-                            <td>7</td>
+                            <td>الأسبوع <?php echo e($weeklyRow["week_number"]); ?></td>
+                            <td><?php echo e(formatNumberValue($weeklyRow["memorization_pages"])); ?></td>
+                            <td><?php echo e(formatNumberValue($weeklyRow["revision_pages"])); ?></td>
                         </tr>
-                        <tr>
-                            <td>الأسبوع 3</td>
-                            <td>3</td>
-                            <td>8</td>
-                        </tr>
-                        <tr>
-                            <td>الأسبوع 4</td>
-                            <td>4</td>
-                            <td>6</td>
-                        </tr>
-                        <tr>
-                            <td>الأسبوع 5</td>
-                            <td>5</td>
-                            <td>9</td>
-                        </tr>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
                         </tbody>
                         <tfoot>
                         <tr>
                             <td>الإجمالي</td>
-                            <td>21</td>
-                            <td>36</td>
+                            <td><?php echo e(formatNumberValue($weeklyMemorizationTotal)); ?></td>
+                            <td><?php echo e(formatNumberValue($weeklyRevisionTotal)); ?></td>
                         </tr>
                         </tfoot>
                     </table>

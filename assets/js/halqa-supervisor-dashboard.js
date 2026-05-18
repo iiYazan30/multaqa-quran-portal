@@ -1,166 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
     var dashboardState = createDashboardState();
 
-    renderSummaryStrip(dashboardState);
-    renderQuickOverviewTable(dashboardState);
-    renderFollowupPreview(dashboardState);
-    renderWeeklyReport(dashboardState);
-    renderWeeklyPerformance(dashboardState.weeklyPerformance);
-    renderCumulativeStats(dashboardState.students);
-    renderStudentsPage(dashboardState.students);
-    renderFollowupTable(dashboardState.students);
-
     initWeeklyReportInteractions(dashboardState);
     initSectionNavigation();
 });
 
 function createDashboardState() {
+    if (window.supervisorDashboardState) {
+        return window.supervisorDashboardState;
+    }
+
     return {
-        halqaName: "حلقة النور",
-        supervisorName: "أحمد يوسف",
-        weeklyPerformance: [
-            { week: "الأسبوع 7", rate: 72, heard: 5, pages: 22 },
-            { week: "الأسبوع 8", rate: 86, heard: 6, pages: 30 },
-            { week: "الأسبوع 9", rate: 74, heard: 5, pages: 24 },
-            { week: "الأسبوع 10", rate: 100, heard: 7, pages: 38 },
-            { week: "الأسبوع 11", rate: 86, heard: 6, pages: 29 },
-            { week: "الأسبوع 12", rate: 71, heard: 5, pages: 26 }
-        ],
-        students: [
-            {
-                id: 1,
-                name: "عبد الله نزار",
-                level: "متقدم",
-                attendance: "منتظم",
-                engagement: "عال",
-                status: "جيد",
-                lastRecitationDate: "2026-04-09",
-                lastActiveWeek: "الأسبوع 12",
-                cumulativeHifz: 62,
-                cumulativeReview: 84,
-                cumulativeSessions: 23,
-                activeWeeks: 11,
-                followUpReasons: [],
-                actionSuggestion: "استمرار بنفس النسق",
-                batches: [
-                    { type: "hifz", from: 18, to: 19, notes: "إتقان جيد" },
-                    { type: "review", from: 30, to: 31, notes: "يحتاج تثبيت مواضع الوقف" }
-                ]
-            },
-            {
-                id: 2,
-                name: "يوسف رائد",
-                level: "متوسط",
-                attendance: "متذبذب",
-                engagement: "متوسط",
-                status: "متابعة",
-                lastRecitationDate: "2026-03-31",
-                lastActiveWeek: "الأسبوع 10",
-                cumulativeHifz: 31,
-                cumulativeReview: 57,
-                cumulativeSessions: 18,
-                activeWeeks: 9,
-                followUpReasons: ["لم يسمع هذا الأسبوع", "ضعف في الالتزام"],
-                actionSuggestion: "اتصال بولي الأمر وتحديد خطة التزام",
-                batches: []
-            },
-            {
-                id: 3,
-                name: "سليم مؤيد",
-                level: "مبتدئ",
-                attendance: "منتظم",
-                engagement: "متوسط",
-                status: "متابعة",
-                lastRecitationDate: "2026-04-08",
-                lastActiveWeek: "الأسبوع 12",
-                cumulativeHifz: 22,
-                cumulativeReview: 29,
-                cumulativeSessions: 14,
-                activeWeeks: 8,
-                followUpReasons: ["عدد صفحات قليل"],
-                actionSuggestion: "رفع هدف الحفظ إلى صفحتين أسبوعيا",
-                batches: [
-                    { type: "hifz", from: 44, to: 44, notes: "صحيح مع بعض التردد" }
-                ]
-            },
-            {
-                id: 4,
-                name: "براء خالد",
-                level: "متوسط",
-                attendance: "جيد",
-                engagement: "عال",
-                status: "جيد",
-                lastRecitationDate: "2026-04-10",
-                lastActiveWeek: "الأسبوع 12",
-                cumulativeHifz: 40,
-                cumulativeReview: 64,
-                cumulativeSessions: 20,
-                activeWeeks: 10,
-                followUpReasons: [],
-                actionSuggestion: "تعزيز المراجعة الممتدة",
-                batches: [
-                    { type: "review", from: 55, to: 58, notes: "ممتاز" }
-                ]
-            },
-            {
-                id: 5,
-                name: "أنس وليد",
-                level: "متقدم",
-                attendance: "متكرر الغياب",
-                engagement: "ضعيف",
-                status: "تنبيه",
-                lastRecitationDate: "2026-04-05",
-                lastActiveWeek: "الأسبوع 11",
-                cumulativeHifz: 48,
-                cumulativeReview: 52,
-                cumulativeSessions: 17,
-                activeWeeks: 7,
-                followUpReasons: ["غياب متكرر", "تراجع في التقدم"],
-                actionSuggestion: "جلسة متابعة فردية وخطة استدراك",
-                batches: [
-                    { type: "hifz", from: 72, to: 72, notes: "أداء منخفض" }
-                ]
-            },
-            {
-                id: 6,
-                name: "مالك طه",
-                level: "متوسط",
-                attendance: "منتظم",
-                engagement: "عال",
-                status: "جيد",
-                lastRecitationDate: "2026-04-10",
-                lastActiveWeek: "الأسبوع 12",
-                cumulativeHifz: 36,
-                cumulativeReview: 41,
-                cumulativeSessions: 16,
-                activeWeeks: 10,
-                followUpReasons: [],
-                actionSuggestion: "الاستمرار",
-                batches: [
-                    { type: "hifz", from: 80, to: 81, notes: "إتقان جيد" },
-                    { type: "review", from: 90, to: 91, notes: "ثبات جيد" }
-                ]
-            },
-            {
-                id: 7,
-                name: "حمزة شادي",
-                level: "مبتدئ",
-                attendance: "جيد",
-                engagement: "متوسط",
-                status: "متابعة",
-                lastRecitationDate: "2026-04-07",
-                lastActiveWeek: "الأسبوع 12",
-                cumulativeHifz: 18,
-                cumulativeReview: 25,
-                cumulativeSessions: 13,
-                activeWeeks: 8,
-                followUpReasons: ["يحتاج مراجعة"],
-                actionSuggestion: "تركيز على تثبيت المحفوظ الحالي",
-                batches: [
-                    { type: "review", from: 102, to: 103, notes: "يحتاج ضبط أحكام" }
-                ]
-            }
-        ]
+        halqaName: "",
+        supervisorName: "",
+        weeklyPerformance: [],
+        students: []
     };
 }
 
@@ -207,10 +61,10 @@ function renderQuickOverviewTable(state) {
 
         return "<tr>" +
             "<td>" + escapeHtml(student.name) + "</td>" +
-            "<td>" + escapeHtml(formatDateArabic(student.lastRecitationDate)) + "</td>" +
-            "<td>" + escapeHtml(latestBatch ? batchTypeLabel(latestBatch.type) : "-") + "</td>" +
-            "<td>" + (latestBatch ? escapeHtml(String(latestBatch.from)) : "-") + "</td>" +
-            "<td>" + (latestBatch ? escapeHtml(String(latestBatch.to)) : "-") + "</td>" +
+            "<td>" + escapeHtml(student.currentWeekRecitation || "لا يوجد") + "</td>" +
+            "<td>" + escapeHtml(latestBatch ? batchTypeLabel(latestBatch.type) : "لا يوجد") + "</td>" +
+            "<td>" + (latestBatch ? escapeHtml(String(latestBatch.from)) : "لا يوجد") + "</td>" +
+            "<td>" + (latestBatch ? escapeHtml(String(latestBatch.to)) : "لا يوجد") + "</td>" +
             "<td>" + escapeHtml(String(totals.total)) + "</td>" +
             "<td><span class=\"status-badge " + statusClass + "\">" + escapeHtml(student.status) + "</span></td>" +
             "</tr>";
@@ -248,7 +102,7 @@ function renderWeeklyReport(state) {
 
         return "<article class=\"weekly-student-card\" data-student-card data-student-id=\"" + student.id + "\">" +
             "<header class=\"weekly-student-head\">" +
-            "<div><h3>" + escapeHtml(student.name) + "</h3><p>المستوى: " + escapeHtml(student.level) + "</p></div>" +
+            "<div><h3>" + escapeHtml(student.name) + "</h3><p>نوع الطالب: " + escapeHtml(student.studentType || "-") + "</p></div>" +
             "<button type=\"button\" class=\"btn-secondary add-batch-btn\" data-add-batch>+ إضافة دفعة تسميع</button>" +
             "</header>" +
             "<div class=\"weekly-student-body\">" +
@@ -297,19 +151,7 @@ function initWeeklyReportInteractions(state) {
     container.addEventListener("click", function (event) {
         var addButton = event.target.closest("[data-add-batch]");
         if (addButton) {
-            var studentCardForAdd = addButton.closest("[data-student-card]");
-            if (!studentCardForAdd) {
-                return;
-            }
-
-            var studentForAdd = findStudentById(state.students, studentCardForAdd.getAttribute("data-student-id"));
-            if (!studentForAdd) {
-                return;
-            }
-
-            studentForAdd.batches.push({ type: "hifz", from: 1, to: 1, notes: "" });
-            refreshStudentCard(studentCardForAdd, studentForAdd);
-            refreshDependentSections(state);
+            event.preventDefault();
             return;
         }
 
@@ -487,7 +329,7 @@ function renderStudentsPage(students) {
 
         return "<tr>" +
             "<td>" + escapeHtml(student.name) + "</td>" +
-            "<td>" + escapeHtml(student.level) + "</td>" +
+            "<td>" + escapeHtml(student.studentType || student.level) + "</td>" +
             "<td>" + escapeHtml(student.attendance) + "</td>" +
             "<td>" + escapeHtml(student.engagement) + "</td>" +
             "<td><a href=\"#weekly-report\" class=\"quick-link\">إدخال تسميع</a></td>" +
