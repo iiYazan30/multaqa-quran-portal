@@ -1,5 +1,20 @@
+# PhpStorm
 .idea/
-*.iml
+
+# OS files
 .DS_Store
-node_modules/
+Thumbs.db
+
+# Environment files
 .env
+*.env
+
+# Logs
+*.log
+
+# Dependencies
+node_modules/
+vendor/
+
+# Ignore local database backups only
+database/backups/
