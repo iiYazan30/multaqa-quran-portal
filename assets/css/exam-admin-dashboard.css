@@ -1,0 +1,238 @@
+/* =========================
+   Exam Admin Dashboard
+========================= */
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+.app-layout,
+.main-area,
+.topbar,
+.page-content,
+.dashboard-table-panel,
+.dashboard-panel {
+    min-width: 0;
+}
+
+.app-layout {
+    overflow-x: hidden;
+}
+
+.exam-admin-page {
+    gap: 24px;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.exam-admin-notice {
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    font-size: var(--font-sm);
+    font-weight: 700;
+}
+
+.notice-success {
+    color: var(--color-olive-dark);
+    background-color: #eaf3e4;
+    border-color: #c9ddbd;
+}
+
+.notice-error {
+    color: #8f3529;
+    background-color: #f7e8e4;
+    border-color: #e4c1b9;
+}
+
+.exam-stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+}
+
+.exam-admin-page .stat-card {
+    min-height: 132px;
+}
+
+.dashboard-table-panel {
+    padding: 22px;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.table-scroll-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-radius: var(--radius-md);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-gutter: stable;
+}
+
+.exam-admin-table-wrap {
+    max-height: none;
+}
+
+.exam-admin-table {
+    width: 100%;
+    min-width: 1080px;
+}
+
+.exam-requests-table {
+    min-width: 1120px;
+}
+
+.completed-exams-table {
+    min-width: 1100px;
+}
+
+.exam-admin-stacked-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    min-width: 0;
+}
+
+.exam-admin-full-section {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.compact-table-wrap {
+    max-height: none;
+}
+
+.compact-data-table {
+    width: 100%;
+    min-width: 760px;
+}
+
+.follow-up-table {
+    min-width: 820px;
+}
+
+.empty-cell {
+    text-align: center !important;
+    color: var(--color-text-light);
+    font-weight: 700;
+}
+
+.exam-admin-page .data-table td {
+    vertical-align: middle;
+}
+
+.exam-admin-page .data-table th,
+.exam-admin-page .data-table td {
+    padding: 10px 12px;
+    font-family: var(--font-main);
+    white-space: nowrap;
+}
+
+.exam-requests-table th:first-child,
+.exam-requests-table td:first-child,
+.exam-requests-table th:nth-child(9),
+.exam-requests-table td:nth-child(9),
+.completed-exams-table th:first-child,
+.completed-exams-table td:first-child,
+.completed-exams-table th:nth-child(9),
+.completed-exams-table td:nth-child(9) {
+    max-width: 220px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.completed-exams-table th:nth-child(9),
+.completed-exams-table td:nth-child(9) {
+    min-width: 220px;
+}
+
+.exam-actions-cell {
+    min-width: 330px;
+    white-space: normal !important;
+}
+
+.exam-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.exam-action-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.result-entry-form {
+    flex-wrap: wrap;
+}
+
+.exam-action-input,
+.exam-action-select {
+    width: auto;
+    min-height: 34px;
+    padding: 7px 9px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-white);
+    color: var(--color-text-dark);
+    font-family: var(--font-main);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.exam-action-input:focus,
+.exam-action-select:focus {
+    outline: none;
+    border-color: var(--color-olive);
+    box-shadow: 0 0 0 2px rgba(85, 107, 47, 0.14);
+}
+
+.score-input {
+    width: 76px;
+}
+
+.examiner-name-input {
+    width: 150px;
+}
+
+.exam-action-button {
+    min-height: 34px;
+    padding: 7px 12px;
+    border-radius: var(--radius-sm);
+    color: var(--color-white);
+    font-family: var(--font-main);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: var(--shadow-sm);
+}
+
+.complete-button {
+    background-color: var(--color-olive);
+}
+
+.complete-button:hover {
+    background-color: var(--color-olive-light);
+}
+
+.action-muted-text {
+    color: var(--color-text-light);
+    font-size: var(--font-sm);
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .dashboard-table-panel {
+        padding: 16px;
+    }
+
+    .exam-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}

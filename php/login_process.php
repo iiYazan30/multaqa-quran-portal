@@ -39,6 +39,8 @@ $_SESSION["role"] = $user["role_name"];
 
 if ($user["role_name"] === "manager") {
     header("Location: ../pages/college-admin-dashboard.php");
+} elseif ($user["role_name"] === "exam_admin") {
+    header("Location: ../pages/exam-admin-dashboard.php");
 } elseif ($user["role_name"] === "supervisor") {
     header("Location: ../pages/halqa-supervisor-dashboard.php");
 } elseif ($user["role_name"] === "student") {

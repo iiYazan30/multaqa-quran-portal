@@ -60,6 +60,69 @@ function gradeBadgeClass($grade, $score)
     return "grade-mid";
 }
 
+function examTypeLabel($type)
+{
+    if ($type === "first_time") {
+        return "أول مرة";
+    }
+
+    if ($type === "retake") {
+        return "إعادة";
+    }
+
+    if ($type === "revision") {
+        return "تثبيت";
+    }
+
+    return "لا يوجد";
+}
+
+function requestStatusLabel($status, $examId)
+{
+    if ($examId !== null && $examId !== "") {
+        return "مكتمل";
+    }
+
+    if ($status === "pending") {
+        return "قيد الانتظار";
+    }
+
+    if ($status === "completed") {
+        return "مكتمل";
+    }
+
+    if ($status === "rejected") {
+        return "مرفوض";
+    }
+
+    if ($status === "approved") {
+        return "معتمد";
+    }
+
+    if ($status === "assigned") {
+        return "موزع";
+    }
+
+    return "لا يوجد";
+}
+
+function requestStatusClass($status, $examId)
+{
+    if ($examId !== null && $examId !== "" || $status === "completed") {
+        return "status-completed";
+    }
+
+    if ($status === "rejected") {
+        return "status-rejected";
+    }
+
+    if ($status === "approved" || $status === "assigned") {
+        return "status-approved";
+    }
+
+    return "status-pending";
+}
+
 $userId = $_SESSION["user_id"];
 
 $studentStmt = $pdo->prepare("
@@ -130,6 +193,22 @@ $examsStmt = $pdo->prepare("
 $examsStmt->execute(array($studentId));
 $exams = $examsStmt->fetchAll(PDO::FETCH_ASSOC);
 
+$examRequestsStmt = $pdo->prepare("
+    SELECT
+        exam_requests.requested_part,
+        exam_requests.exam_type,
+        exam_requests.status,
+        exam_requests.request_date,
+        exams.exam_id,
+        exams.score
+    FROM exam_requests
+    LEFT JOIN exams ON exams.request_id = exam_requests.request_id
+    WHERE exam_requests.student_id = ?
+    ORDER BY exam_requests.request_date DESC, exam_requests.request_id DESC
+");
+$examRequestsStmt->execute(array($studentId));
+$examRequests = $examRequestsStmt->fetchAll(PDO::FETCH_ASSOC);
+
 $weeklyStmt = $pdo->prepare("
     SELECT
         weeks.week_number,
@@ -149,6 +228,23 @@ $weeklyRevisionTotal = 0;
 foreach ($weeklyRows as $weeklyRow) {
     $weeklyMemorizationTotal += (int) $weeklyRow["memorization_pages"];
     $weeklyRevisionTotal += (int) $weeklyRow["revision_pages"];
+}
+
+$noticeText = "";
+$noticeClass = "";
+if (isset($_GET["success"]) && $_GET["success"] === "exam_request_sent") {
+    $noticeText = "تم إرسال طلب الامتحان بنجاح";
+    $noticeClass = "notice-success";
+} elseif (isset($_GET["error"])) {
+    if ($_GET["error"] === "duplicate_exam_request") {
+        $noticeText = "يوجد طلب امتحان نشط لهذا الجزء";
+    } elseif ($_GET["error"] === "exam_request_failed") {
+        $noticeText = "تعذر إرسال طلب الامتحان";
+    }
+
+    if ($noticeText !== "") {
+        $noticeClass = "notice-error";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -178,7 +274,9 @@ foreach ($weeklyRows as $weeklyRow) {
             <nav class="sidebar-menu" aria-label="قائمة الطالب">
                 <a href="#overview" class="sidebar-link active" data-section-link>الرئيسية</a>
                 <a href="#progress" class="sidebar-link" data-section-link>تقدمي</a>
+                <a href="#exam-request-section" class="sidebar-link sidebar-link-highlight" data-section-link>طلب امتحان</a>
                 <a href="#part-exams" class="sidebar-link" data-section-link>امتحانات الأجزاء</a>
+                <a href="quran-progress.php" class="sidebar-link sidebar-link-map">خريطة الحفظ</a>
                 <a href="#profile" class="sidebar-link" data-section-link>الملف الشخصي</a>
                 <a href="#settings" class="sidebar-link" data-section-link>الإعدادات</a>
             </nav>
@@ -213,6 +311,12 @@ foreach ($weeklyRows as $weeklyRow) {
         </header>
 
         <section class="page-content">
+            <?php if ($noticeText !== ""): ?>
+                <div class="student-dashboard-notice <?php echo e($noticeClass); ?>">
+                    <?php echo e($noticeText); ?>
+                </div>
+            <?php endif; ?>
+
             <section id="overview" class="dashboard-section card" data-section>
                 <div class="panel-header">
                     <h2>ملخص الإنجاز منذ بداية الملتقى</h2>
@@ -280,6 +384,53 @@ foreach ($weeklyRows as $weeklyRow) {
                         <h3><?php echo e(formatPercentValue($examStats["average_score"], "0")); ?></h3>
                         <p>متوسط العلامات</p>
                     </article>
+                </div>
+
+                <div id="exam-request-section" class="exam-request-card exam-request-highlight section-table-gap">
+                    <div class="request-panel-header">
+                        <div>
+                            <h3>طلب امتحان جزء</h3>
+                            <p>اكتب رقم الجزء الذي تريد التقدم لامتحانه</p>
+                        </div>
+                    </div>
+
+                    <form method="POST" action="../php/request_exam.php" class="exam-request-form">
+                        <div class="exam-request-inline">
+                            <input type="number" name="part_number" class="exam-request-input" min="1" max="30" placeholder="مثال: 5" required>
+                            <button type="submit" class="btn-primary exam-request-submit">إرسال طلب الامتحان</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="table-wrap section-table-gap">
+                    <table class="data-table exam-requests-table">
+                        <thead>
+                        <tr>
+                            <th>الجزء المطلوب</th>
+                            <th>نوع الامتحان</th>
+                            <th>تاريخ الطلب</th>
+                            <th>الحالة</th>
+                            <th>النتيجة</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php if (count($examRequests) === 0): ?>
+                        <tr>
+                            <td colspan="5">لا يوجد</td>
+                        </tr>
+                        <?php else: ?>
+                        <?php foreach ($examRequests as $request): ?>
+                        <tr>
+                            <td><?php echo e(fallbackValue($request["requested_part"], "لا يوجد")); ?></td>
+                            <td><?php echo e(examTypeLabel($request["exam_type"])); ?></td>
+                            <td><?php echo e(fallbackValue($request["request_date"], "لا يوجد")); ?></td>
+                            <td><span class="request-status-badge <?php echo e(requestStatusClass($request["status"], $request["exam_id"])); ?>"><?php echo e(requestStatusLabel($request["status"], $request["exam_id"])); ?></span></td>
+                            <td><?php echo $request["exam_id"] ? e(formatPercentValue($request["score"], "0")) : e("لا يوجد"); ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
+                        </tbody>
+                    </table>
                 </div>
 
                 <div class="table-wrap section-table-gap">

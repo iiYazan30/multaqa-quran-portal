@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2026 at 10:48 PM
+-- Generation Time: Jun 03, 2026 at 12:47 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,11 +47,15 @@ INSERT INTO `colleges` (`college_id`, `college_name`) VALUES
 
 CREATE TABLE `exams` (
   `exam_id` int(11) NOT NULL,
+  `request_id` int(11) DEFAULT NULL,
   `student_id` int(11) NOT NULL,
   `part_name` varchar(100) NOT NULL,
   `score` decimal(5,2) NOT NULL,
   `grade` varchar(50) DEFAULT NULL,
   `exam_date` date NOT NULL,
+  `week_id` int(11) DEFAULT NULL,
+  `exam_admin_id` int(11) DEFAULT NULL,
+  `examiner_supervisor_id` int(11) DEFAULT NULL,
   `notes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -59,36 +63,57 @@ CREATE TABLE `exams` (
 -- Dumping data for table `exams`
 --
 
-INSERT INTO `exams` (`exam_id`, `student_id`, `part_name`, `score`, `grade`, `exam_date`, `notes`) VALUES
-(1, 1, 'الجزء الأول', 92.50, 'ممتاز', '2026-05-01', 'أداء ممتاز'),
-(2, 2, 'الجزء الثاني', 85.00, 'جيد جداً', '2026-05-03', 'جيد'),
-(3, 3, 'الجزء الأول', 96.00, 'ممتاز', '2026-05-05', 'متميز'),
-(4, 1, 'الجزء الثاني', 88.00, 'جيد جداً', '2026-05-15', 'أداء جيد مع بعض الملاحظات'),
-(5, 1, 'الجزء الثالث', 95.00, 'ممتاز', '2026-05-28', 'إتقان واضح'),
-(6, 1, 'الجزء الرابع', 90.00, 'ممتاز', '2026-06-10', 'تحسن في ضبط الأحكام'),
-(7, 1, 'الجزء الخامس', 84.00, 'جيد جداً', '2026-06-22', 'بحاجة لمراجعة إضافية'),
-(8, 2, 'الجزء الأول', 78.00, 'جيد', '2026-05-18', 'يحتاج مراجعة'),
-(9, 2, 'الجزء الثاني', 82.00, 'جيد جداً', '2026-06-02', 'تحسن ملحوظ'),
-(10, 3, 'الجزء الأول', 61.00, 'مقبول', '2026-05-20', 'بحاجة متابعة'),
-(11, 4, 'الجزء الأول', 91.00, 'ممتاز', '2026-05-25', 'أداء قوي'),
-(12, 4, 'الجزء الثاني', 87.00, 'جيد جداً', '2026-06-12', 'جيد جداً'),
-(13, 5, 'الجزء الأول', 79.00, 'جيد', '2026-05-30', 'مستوى متوسط'),
-(14, 6, 'الجزء الأول', 65.00, 'مقبول', '2026-06-05', 'بحاجة لمراجعة'),
-(15, 7, 'الجزء السادس', 94.00, 'ممتاز', '2026-06-20', 'أداء عال'),
-(16, 8, 'الجزء الرابع', 82.00, 'جيد جداً', '2026-06-21', 'جيد'),
-(17, 11, 'الجزء السابع', 97.00, 'ممتاز', '2026-06-22', 'متميز'),
-(18, 12, 'الجزء الخامس', 91.00, 'ممتاز', '2026-06-23', 'إتقان واضح'),
-(19, 13, 'الجزء الثالث', 73.00, 'جيد', '2026-06-24', 'يحتاج مراجعة'),
-(20, 14, 'الجزء الرابع', 86.00, 'جيد جداً', '2026-06-25', 'جيد جداً'),
-(21, 16, 'الجزء الثامن', 89.00, 'جيد جداً', '2026-06-26', 'ثابت'),
-(22, 17, 'الجزء الثالث', 84.00, 'جيد جداً', '2026-06-27', 'تحسن واضح'),
-(23, 18, 'الجزء الأول', 58.00, 'مقبول', '2026-06-28', 'بحاجة متابعة'),
-(24, 22, 'الجزء التاسع', 96.00, 'ممتاز', '2026-06-29', 'أداء قوي'),
-(25, 24, 'الجزء الرابع', 88.00, 'جيد جداً', '2026-06-30', 'جيد'),
-(26, 26, 'الجزء السادس', 92.00, 'ممتاز', '2026-07-01', 'ممتاز'),
-(27, 27, 'الجزء الثاني', 81.00, 'جيد جداً', '2026-07-02', 'جيد'),
-(28, 29, 'الجزء الخامس', 95.00, 'ممتاز', '2026-07-03', 'متميز'),
-(29, 30, 'الجزء الأول', 60.00, 'مقبول', '2026-07-04', 'ضعيف');
+INSERT INTO `exams` (`exam_id`, `request_id`, `student_id`, `part_name`, `score`, `grade`, `exam_date`, `week_id`, `exam_admin_id`, `examiner_supervisor_id`, `notes`) VALUES
+(1, NULL, 1, 'الجزء الأول', 92.50, 'ممتاز', '2026-05-01', 1, 1, 1, 'أداء ممتاز'),
+(2, NULL, 2, 'الجزء الثاني', 85.00, 'جيد جداً', '2026-05-03', 2, 1, 1, 'جيد'),
+(3, NULL, 3, 'الجزء الأول', 96.00, 'ممتاز', '2026-05-05', 3, 1, 1, 'متميز'),
+(4, NULL, 1, 'الجزء الثاني', 88.00, 'جيد جداً', '2026-05-15', 4, 1, 1, 'أداء جيد مع بعض الملاحظات'),
+(5, NULL, 1, 'الجزء الثالث', 95.00, 'ممتاز', '2026-05-28', 5, 1, 1, 'إتقان واضح'),
+(6, NULL, 1, 'الجزء الرابع', 90.00, 'ممتاز', '2026-06-10', 6, 1, 1, 'تحسن في ضبط الأحكام'),
+(7, NULL, 1, 'الجزء الخامس', 84.00, 'جيد جداً', '2026-06-22', 7, 1, 1, 'بحاجة لمراجعة إضافية'),
+(8, NULL, 2, 'الجزء الأول', 78.00, 'جيد', '2026-05-18', 8, 1, 1, 'يحتاج مراجعة'),
+(9, NULL, 2, 'الجزء الثاني', 82.00, 'جيد جداً', '2026-06-02', 1, 1, 1, 'تحسن ملحوظ'),
+(10, NULL, 3, 'الجزء الأول', 61.00, 'مقبول', '2026-05-20', 2, 1, 1, 'بحاجة متابعة'),
+(11, NULL, 4, 'الجزء الأول', 91.00, 'ممتاز', '2026-05-25', 3, 1, 1, 'أداء قوي'),
+(12, NULL, 4, 'الجزء الثاني', 87.00, 'جيد جداً', '2026-06-12', 4, 1, 1, 'جيد جداً'),
+(13, NULL, 5, 'الجزء الأول', 79.00, 'جيد', '2026-05-30', 5, 1, 1, 'مستوى متوسط'),
+(14, NULL, 6, 'الجزء الأول', 65.00, 'مقبول', '2026-06-05', 6, 1, 1, 'بحاجة لمراجعة'),
+(15, NULL, 7, 'الجزء السادس', 94.00, 'ممتاز', '2026-06-20', 7, 1, 2, 'أداء عال'),
+(16, NULL, 8, 'الجزء الرابع', 82.00, 'جيد جداً', '2026-06-21', 8, 1, 2, 'جيد'),
+(17, NULL, 11, 'الجزء السابع', 97.00, 'ممتاز', '2026-06-22', 1, 1, 2, 'متميز'),
+(18, NULL, 12, 'الجزء الخامس', 91.00, 'ممتاز', '2026-06-23', 2, 1, 3, 'إتقان واضح'),
+(19, NULL, 13, 'الجزء الثالث', 73.00, 'جيد', '2026-06-24', 3, 1, 3, 'يحتاج مراجعة'),
+(20, NULL, 14, 'الجزء الرابع', 86.00, 'جيد جداً', '2026-06-25', 4, 1, 3, 'جيد جداً'),
+(21, NULL, 16, 'الجزء الثامن', 89.00, 'جيد جداً', '2026-06-26', 5, 1, 4, 'ثابت'),
+(22, NULL, 17, 'الجزء الثالث', 84.00, 'جيد جداً', '2026-06-27', 6, 1, 4, 'تحسن واضح'),
+(23, NULL, 18, 'الجزء الأول', 58.00, 'مقبول', '2026-06-28', 7, 1, 4, 'بحاجة متابعة'),
+(24, NULL, 22, 'الجزء التاسع', 96.00, 'ممتاز', '2026-06-29', 8, 1, 5, 'أداء قوي'),
+(25, NULL, 24, 'الجزء الرابع', 88.00, 'جيد جداً', '2026-06-30', 1, 1, 5, 'جيد'),
+(26, NULL, 26, 'الجزء السادس', 92.00, 'ممتاز', '2026-07-01', 2, 1, 5, 'ممتاز'),
+(27, NULL, 27, 'الجزء الثاني', 81.00, 'جيد جداً', '2026-07-02', 3, 1, 6, 'جيد'),
+(28, NULL, 29, 'الجزء الخامس', 95.00, 'ممتاز', '2026-07-03', 4, 1, 6, 'متميز'),
+(29, NULL, 30, 'الجزء الأول', 60.00, 'مقبول', '2026-07-04', 5, 1, 6, 'ضعيف');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exam_admins`
+--
+
+CREATE TABLE `exam_admins` (
+  `exam_admin_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `college_id` int(11) NOT NULL,
+  `full_name` varchar(150) NOT NULL,
+  `phone` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `exam_admins`
+--
+
+INSERT INTO `exam_admins` (`exam_admin_id`, `user_id`, `college_id`, `full_name`, `phone`) VALUES
+(1, 39, 1, 'مسؤول الامتحانات', '0599888877');
 
 -- --------------------------------------------------------
 
@@ -100,8 +125,12 @@ CREATE TABLE `exam_requests` (
   `request_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `requested_part` varchar(100) NOT NULL,
-  `status` enum('pending','approved','rejected','completed') DEFAULT 'pending',
+  `exam_type` enum('first_time','retake','revision') DEFAULT 'first_time',
+  `status` enum('pending','approved','assigned','rejected','completed') DEFAULT 'pending',
   `request_date` date NOT NULL,
+  `week_id` int(11) DEFAULT NULL,
+  `exam_admin_id` int(11) DEFAULT NULL,
+  `examiner_supervisor_id` int(11) DEFAULT NULL,
   `notes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -109,27 +138,27 @@ CREATE TABLE `exam_requests` (
 -- Dumping data for table `exam_requests`
 --
 
-INSERT INTO `exam_requests` (`request_id`, `student_id`, `requested_part`, `status`, `request_date`, `notes`) VALUES
-(1, 1, 'الجزء الثاني', 'pending', '2026-05-10', 'جاهز للاختبار'),
-(2, 2, 'الجزء الثالث', 'approved', '2026-05-11', 'تمت الموافقة'),
-(3, 3, 'الجزء الثاني', 'completed', '2026-05-12', 'تم الاختبار'),
-(4, 2, 'الجزء الثالث', 'pending', '2026-06-10', 'بانتظار الموافقة'),
-(5, 3, 'الجزء الثاني', 'rejected', '2026-06-01', 'يحتاج تحسين المستوى'),
-(6, 4, 'الجزء الثالث', 'pending', '2026-06-18', 'جاهز للاختبار'),
-(7, 5, 'الجزء الثاني', 'approved', '2026-06-17', 'تمت الموافقة'),
-(8, 6, 'الجزء الثاني', 'rejected', '2026-06-16', 'يحتاج تحسين قبل الاختبار'),
-(9, 7, 'الجزء السابع', 'pending', '2026-07-05', 'جاهز للاختبار'),
-(10, 8, 'الجزء الخامس', 'approved', '2026-07-05', 'تمت الموافقة'),
-(11, 10, 'الجزء الثاني', 'rejected', '2026-07-06', 'بحاجة لمزيد من المراجعة'),
-(12, 12, 'الجزء السادس', 'completed', '2026-07-06', 'تم الاختبار'),
-(13, 13, 'الجزء الرابع', 'pending', '2026-07-07', 'بانتظار تحديد الموعد'),
-(14, 15, 'الجزء الثاني', 'rejected', '2026-07-07', 'المستوى غير كافٍ'),
-(15, 17, 'الجزء الرابع', 'approved', '2026-07-08', 'تمت الموافقة'),
-(16, 18, 'الجزء الثاني', 'rejected', '2026-07-08', 'يحتاج متابعة'),
-(17, 21, 'الجزء الأول', 'pending', '2026-07-09', 'طلب جديد'),
-(18, 22, 'الجزء العاشر', 'completed', '2026-07-09', 'تم الاختبار'),
-(19, 25, 'الجزء الثالث', 'pending', '2026-07-10', 'بانتظار المراجعة'),
-(20, 29, 'الجزء السادس', 'approved', '2026-07-10', 'جاهز');
+INSERT INTO `exam_requests` (`request_id`, `student_id`, `requested_part`, `exam_type`, `status`, `request_date`, `week_id`, `exam_admin_id`, `examiner_supervisor_id`, `notes`) VALUES
+(1, 1, 'الجزء الثاني', 'first_time', 'pending', '2026-05-10', 8, 1, 1, 'جاهز للاختبار'),
+(2, 2, 'الجزء الثالث', 'first_time', 'approved', '2026-05-11', 8, 1, 1, 'تمت الموافقة'),
+(3, 3, 'الجزء الثاني', 'first_time', 'completed', '2026-05-12', 8, 1, 1, 'تم الاختبار'),
+(4, 2, 'الجزء الثالث', 'first_time', 'pending', '2026-06-10', 8, 1, 1, 'بانتظار الموافقة'),
+(5, 3, 'الجزء الثاني', 'first_time', 'rejected', '2026-06-01', 8, 1, 1, 'يحتاج تحسين المستوى'),
+(6, 4, 'الجزء الثالث', 'first_time', 'pending', '2026-06-18', 8, 1, 1, 'جاهز للاختبار'),
+(7, 5, 'الجزء الثاني', 'first_time', 'approved', '2026-06-17', 8, 1, 1, 'تمت الموافقة'),
+(8, 6, 'الجزء الثاني', 'first_time', 'rejected', '2026-06-16', 8, 1, 1, 'يحتاج تحسين قبل الاختبار'),
+(9, 7, 'الجزء السابع', 'first_time', 'pending', '2026-07-05', 8, 1, 2, 'جاهز للاختبار'),
+(10, 8, 'الجزء الخامس', 'first_time', 'approved', '2026-07-05', 8, 1, 2, 'تمت الموافقة'),
+(11, 10, 'الجزء الثاني', 'first_time', 'rejected', '2026-07-06', 8, 1, 2, 'بحاجة لمزيد من المراجعة'),
+(12, 12, 'الجزء السادس', 'first_time', 'completed', '2026-07-06', 8, 1, 3, 'تم الاختبار'),
+(13, 13, 'الجزء الرابع', 'first_time', 'pending', '2026-07-07', 8, 1, 3, 'بانتظار تحديد الموعد'),
+(14, 15, 'الجزء الثاني', 'first_time', 'rejected', '2026-07-07', 8, 1, 3, 'المستوى غير كافٍ'),
+(15, 17, 'الجزء الرابع', 'first_time', 'approved', '2026-07-08', 8, 1, 4, 'تمت الموافقة'),
+(16, 18, 'الجزء الثاني', 'first_time', 'rejected', '2026-07-08', 8, 1, 4, 'يحتاج متابعة'),
+(17, 21, 'الجزء الأول', 'first_time', 'pending', '2026-07-09', 8, 1, 4, 'طلب جديد'),
+(18, 22, 'الجزء العاشر', 'first_time', 'completed', '2026-07-09', 8, 1, 5, 'تم الاختبار'),
+(19, 25, 'الجزء الثالث', 'first_time', 'pending', '2026-07-10', 8, 1, 5, 'بانتظار المراجعة'),
+(20, 29, 'الجزء السادس', 'first_time', 'approved', '2026-07-10', 8, 1, 6, 'جاهز');
 
 -- --------------------------------------------------------
 
@@ -289,6 +318,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`role_id`, `role_name`) VALUES
+(4, 'exam_admin'),
 (1, 'manager'),
 (3, 'student'),
 (2, 'supervisor');
@@ -426,7 +456,8 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `role_id`) VALUES
 (35, 'student28', '123456', 3),
 (36, 'student29', '123456', 3),
 (37, 'student30', '123456', 3),
-(38, 'student31', '123456', 3);
+(38, 'student31', '123456', 3),
+(39, 'examadmin1', '123456', 4);
 
 -- --------------------------------------------------------
 
@@ -468,14 +499,29 @@ ALTER TABLE `colleges`
 --
 ALTER TABLE `exams`
   ADD PRIMARY KEY (`exam_id`),
-  ADD KEY `student_id` (`student_id`);
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `fk_exams_request` (`request_id`),
+  ADD KEY `fk_exams_week` (`week_id`),
+  ADD KEY `fk_exams_exam_admin` (`exam_admin_id`),
+  ADD KEY `fk_exams_examiner_supervisor` (`examiner_supervisor_id`);
+
+--
+-- Indexes for table `exam_admins`
+--
+ALTER TABLE `exam_admins`
+  ADD PRIMARY KEY (`exam_admin_id`),
+  ADD UNIQUE KEY `user_id` (`user_id`),
+  ADD KEY `college_id` (`college_id`);
 
 --
 -- Indexes for table `exam_requests`
 --
 ALTER TABLE `exam_requests`
   ADD PRIMARY KEY (`request_id`),
-  ADD KEY `student_id` (`student_id`);
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `fk_exam_requests_week` (`week_id`),
+  ADD KEY `fk_exam_requests_exam_admin` (`exam_admin_id`),
+  ADD KEY `fk_exam_requests_examiner_supervisor` (`examiner_supervisor_id`);
 
 --
 -- Indexes for table `halqas`
@@ -554,6 +600,12 @@ ALTER TABLE `exams`
   MODIFY `exam_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
+-- AUTO_INCREMENT for table `exam_admins`
+--
+ALTER TABLE `exam_admins`
+  MODIFY `exam_admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `exam_requests`
 --
 ALTER TABLE `exam_requests`
@@ -581,7 +633,7 @@ ALTER TABLE `recitations`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -599,7 +651,7 @@ ALTER TABLE `supervisors`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `weeks`
@@ -615,13 +667,27 @@ ALTER TABLE `weeks`
 -- Constraints for table `exams`
 --
 ALTER TABLE `exams`
-  ADD CONSTRAINT `exams_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `exams_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_exams_exam_admin` FOREIGN KEY (`exam_admin_id`) REFERENCES `exam_admins` (`exam_admin_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_exams_examiner_supervisor` FOREIGN KEY (`examiner_supervisor_id`) REFERENCES `supervisors` (`supervisor_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_exams_request` FOREIGN KEY (`request_id`) REFERENCES `exam_requests` (`request_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_exams_week` FOREIGN KEY (`week_id`) REFERENCES `weeks` (`week_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `exam_admins`
+--
+ALTER TABLE `exam_admins`
+  ADD CONSTRAINT `exam_admins_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `exam_admins_ibfk_2` FOREIGN KEY (`college_id`) REFERENCES `colleges` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `exam_requests`
 --
 ALTER TABLE `exam_requests`
-  ADD CONSTRAINT `exam_requests_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `exam_requests_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_exam_requests_exam_admin` FOREIGN KEY (`exam_admin_id`) REFERENCES `exam_admins` (`exam_admin_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_exam_requests_examiner_supervisor` FOREIGN KEY (`examiner_supervisor_id`) REFERENCES `supervisors` (`supervisor_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_exam_requests_week` FOREIGN KEY (`week_id`) REFERENCES `weeks` (`week_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `halqas`
